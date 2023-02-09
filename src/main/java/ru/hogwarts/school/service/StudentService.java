@@ -13,19 +13,19 @@ public class StudentService {
     private final Map<Long, Student> studentMap = new HashMap<>();
     private static Long counterId = 1L;
 
-    public Student create(String name, Integer age) {
-        return studentMap.put(counterId, new Student(counterId++, name, age));
+    public Student create(Student student) {
+        return studentMap.put(counterId++, student);
     }
 
     public Student read(Long studentId) {
         return studentMap.get(studentId);
     }
 
-    public Student update(Long studentId, String name, Integer age) {
-        Student student = studentMap.get(studentId);
-        student.setName(name);
-        student.setAge(age);
-        return student;
+    public Student update(Student student) {
+        Student currentStudent = studentMap.get(student.getId());
+        currentStudent.setName(student.getName());
+        currentStudent.setAge(student.getAge());
+        return currentStudent;
     }
 
     public Student delete(Long studentId) {

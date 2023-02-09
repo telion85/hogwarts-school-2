@@ -13,19 +13,19 @@ public class FacultyService {
     private final Map<Long, Faculty> facultyMap = new HashMap<>();
     private static Long counterId;
 
-    public Faculty create(String name, String color) {
-        return facultyMap.put(counterId, new Faculty(counterId++, name, color));
+    public Faculty create(Faculty faculty) {
+        return facultyMap.put(counterId++, faculty);
     }
 
     public Faculty read(Long facultyId) {
         return facultyMap.get(facultyId);
     }
 
-    public Faculty update(Long facultyId, String name, String color) {
-        Faculty faculty = facultyMap.get(facultyId);
-        faculty.setName(name);
-        faculty.setColor(color);
-        return facultyMap.put(facultyId, faculty);
+    public Faculty update(Faculty faculty) {
+        Faculty currentFaculty = facultyMap.get(faculty.getId());
+        currentFaculty.setName(faculty.getName());
+        currentFaculty.setColor(faculty.getColor());
+        return currentFaculty;
     }
 
     public Faculty delete(Long facultyId) {
