@@ -14,7 +14,9 @@ public class FacultyService {
     private static Long counterId;
 
     public Faculty create(Faculty faculty) {
-        return facultyMap.put(counterId++, faculty);
+        Faculty newFaculty = new Faculty(counterId, faculty.getName(), faculty.getColor());
+        facultyMap.put(counterId++, newFaculty);
+        return newFaculty;
     }
 
     public Faculty read(Long facultyId) {
@@ -23,6 +25,7 @@ public class FacultyService {
 
     public Faculty update(Faculty faculty) {
         Faculty currentFaculty = facultyMap.get(faculty.getId());
+        if (null == currentFaculty) return null;
         currentFaculty.setName(faculty.getName());
         currentFaculty.setColor(faculty.getColor());
         return currentFaculty;
@@ -36,5 +39,10 @@ public class FacultyService {
         return facultyMap.values().stream()
                 .filter(faculty -> faculty.getColor().equals(color))
                 .collect(Collectors.toList());
+    }
+
+    public List<Faculty> printAllFaculties() {
+        return facultyMap.values().stream()
+                .toList();
     }
 }

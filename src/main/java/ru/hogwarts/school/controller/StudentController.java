@@ -6,7 +6,6 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
-import java.util.List;
 
 @RestController
 @RequestMapping("student")
@@ -38,6 +37,11 @@ public class StudentController {
         return ResponseEntity.ok(studentService.delete(id));
     }
 
+
+    @GetMapping
+    public ResponseEntity<Collection<Student>> printAllStudents() {
+        return ResponseEntity.ok(studentService.printAllStudents());
+    }
 
     @GetMapping("filter")
     public ResponseEntity<Collection<Student>> filterByAge(@RequestParam Integer age) {

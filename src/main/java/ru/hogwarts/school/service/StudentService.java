@@ -14,7 +14,9 @@ public class StudentService {
     private static Long counterId = 1L;
 
     public Student create(Student student) {
-        return studentMap.put(counterId++, student);
+        Student newStudent = new Student(counterId, student.getName(), student.getAge());
+        studentMap.put(counterId++, newStudent);
+        return newStudent;
     }
 
     public Student read(Long studentId) {
@@ -23,6 +25,7 @@ public class StudentService {
 
     public Student update(Student student) {
         Student currentStudent = studentMap.get(student.getId());
+        if (null == currentStudent) return null;
         currentStudent.setName(student.getName());
         currentStudent.setAge(student.getAge());
         return currentStudent;
@@ -36,5 +39,10 @@ public class StudentService {
         return studentMap.values().stream()
                 .filter(student -> student.getAge() == age)
                 .collect(Collectors.toList());
+    }
+
+    public List<Student> printAllStudents() {
+        return studentMap.values().stream()
+                .toList();
     }
 }
